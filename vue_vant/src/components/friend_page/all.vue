@@ -30,7 +30,9 @@
                 </li>
             </ul>
         </section>
-        
+        <div class="many">
+            <p @click="add()">点击加载更多</p>
+        </div>
     </div>
 </template>
 
@@ -47,7 +49,8 @@ export default {
   props: ["type"],
   data() {
     return {
-      total: ""
+      total: "",
+      num:""
     };
   },
   methods: {
@@ -68,11 +71,35 @@ export default {
           console.log(res);
         }
       });
+    },
+    add(){
+       var self = this;
+        $.ajax({
+            url: "http://localhost:3000/all",
+            type: "get",
+            data: {
+                num:20
+            },
+            success(data) {
+            var data = JSON.parse(data);
+            // console.log(JSON.parse(data));
+
+            // console.log(JSON.parse(data).data);
+            var res = JSON.parse(data).data;
+            self.total = res;
+
+            console.log(res);
+            }
+      });
+        
     }
-  },
+   
+  }, 
   mounted() {
     this.getall();
-  }
+    
+  },
+ 
 };
 </script>
 
@@ -131,5 +158,15 @@ export default {
     
     }
 }
-      
+.many{
+    p{
+        width: 100%;
+        height: 60px;
+        line-height: 60px  ;
+        background-color: #bcfcfc;
+        text-align:center;
+        font-size:30px;
+
+    }
+}     
 </style>

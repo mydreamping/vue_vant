@@ -34,8 +34,9 @@ app.get('/all', function (req, res) {
     var data = req.query;
     send_go()
 
-    function send_go() {
-        request('http://www.iqingyi.com/recommend/getBestNoteAndRoadmap?startidx=0&num=20' + data, function (error, response, body) {
+    function send_go(number) {
+        var num = number;
+        request("http://www.iqingyi.com/recommend/getBestNoteAndRoadmap?startidx=0&num="+ num  + data, function (error, response, body) {
             if (error) throw error;
             res.send(JSON.stringify(body))
             // console.log(body)

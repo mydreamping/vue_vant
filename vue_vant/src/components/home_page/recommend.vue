@@ -176,7 +176,7 @@ export default {
                     var data =  JSON.parse(data);
                     var res = JSON.parse(data).data;
                     self.swipwer = res;
-                    console.log(res)
+                    console.log(self.swipwer)
                    
                 
                 }

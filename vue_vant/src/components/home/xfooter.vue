@@ -60,7 +60,7 @@ export default {
   border-top: 0.033rem solid #ccc;
 }
 .van-tabbar-item {
-  font-size: 0.5rem;
+  /* font-size: 0.5rem; */
 }
 .van-tabbar-item__icon {
      font-size: 0.6666666666666666rem;

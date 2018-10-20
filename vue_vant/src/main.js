@@ -10,33 +10,6 @@ window .$ = $
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-	//状态
-	state: {
-		searchText: "",
-	},
-	//
-	mutations: {
-		changeSearchText(state, data) {
-			state.searchText = data;
-		}
-	},
-	actions: {
-		setSearchText(context, data) {
-			context.commit('changeSearchText', data)
-		},
-	},
-	getters:{
-		getSearchText(state){
-			return state.searchText
-		}
-	}
-	//actions---(commit)--->mutations----->state
-})
-
-
-
-
 
 //vant的引入
 import vant from 'vant'
@@ -56,7 +29,7 @@ Vue.use(vant);
 
 new Vue({
   router,
-  store,
+//   store,
   el: '#app',
   render: h => h(App)
 })
