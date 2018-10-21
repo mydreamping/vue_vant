@@ -78,7 +78,9 @@ export default {
             url: "http://localhost:3000/all",
             type: "get",
             data: {
+                startidx:0,
                 num:20
+                
             },
             success(data) {
             var data = JSON.parse(data);

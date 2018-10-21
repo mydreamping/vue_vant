@@ -32,14 +32,13 @@ app.get('/all', function (req, res) {
     res.append("Access-Control-Allow-Origin", "*");
     //通过request请求发起http请求，请求后台的数据
     var data = req.query;
-    send_go()
+    send_go(data)
 
-    function send_go(number) {
-        var num = number;
-        request("http://www.iqingyi.com/recommend/getBestNoteAndRoadmap?startidx=0&num="+ num  + data, function (error, response, body) {
+    function send_go(data) {
+        request(`http://www.iqingyi.com/recommend/getBestNoteAndRoadmap?startidx=${data.startidx}&num=${data.num}`, function (error, response, body) {
+            console.log(data)
             if (error) throw error;
             res.send(JSON.stringify(body))
-            // console.log(body)
         })
     }
 
