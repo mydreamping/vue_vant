@@ -1,10 +1,11 @@
 <template>
     <div style="widht:100%;height:100px;">
-       <div class="head">
+       <!-- <div class="head">
            <van-icon name="arrow-left" />
            <span>注册</span>
            <span></span>
-       </div>
+       </div> -->
+       <xxheader type="reg"/>
        <div class="pannel">
            
             <div class="p_input">
@@ -51,6 +52,9 @@ import Vue from 'vue'
 import { Field } from 'vant';
 
 Vue.use(Field);
+
+import xxheader from "./xxheader.vue";
+
 export default {
     
     data() {
@@ -59,7 +63,7 @@ export default {
         }
     },
     components: {
-        
+        xxheader
         },
     methods: {
       
@@ -86,9 +90,10 @@ export default {
      font-size:0.3466666666666667rem;
      text-align: center;
      min-height: 15.333333333333334rem;
-     padding-top:1.3333333333333333rem;
+     /* padding-top:1.3333333333333333rem; */
 }
  .p_input{
+     padding-top:1.3rem;
 }
  input{
      width: 6rem;

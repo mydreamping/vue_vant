@@ -26,7 +26,7 @@ app.get('/index', function (req, res) {
 
 })
 
-// 全部
+// 全部信息
 app.get('/all', function (req, res) {
 
     res.append("Access-Control-Allow-Origin", "*");
@@ -36,7 +36,7 @@ app.get('/all', function (req, res) {
 
     function send_go(data) {
         request(`http://www.iqingyi.com/recommend/getBestNoteAndRoadmap?startidx=${data.startidx}&num=${data.num}`, function (error, response, body) {
-            console.log(data)
+            // console.log(data)
             if (error) throw error;
             res.send(JSON.stringify(body))
         })
@@ -44,16 +44,17 @@ app.get('/all', function (req, res) {
 
 
 })
-
+// 轮播图
 app.get('/swiper', function (req, res) {
 
     res.append("Access-Control-Allow-Origin", "*");
     //通过request请求发起http请求，请求后台的数据
     var data = req.query;
-    send_go()
+    send_go(data)
 
-    function send_go() {
-        request('http://www.iqingyi.com/topic/getHotTopicPosts?startidx=3&num=3' + data, function (error, response, body) {
+    function send_go(data) {
+        request(`http://www.iqingyi.com/topic/getHotTopicPosts?startidx=${data.startidx}&num=${data.num}` + data, function (error, response, body) {
+            console.log(data);
             if (error) throw error;
             res.send(JSON.stringify(body))
             // console.log(body)
@@ -62,6 +63,7 @@ app.get('/swiper', function (req, res) {
 
 
 })
+// 详细信息，正文页
 app.get('/user', function (req, res) {
 
     res.append("Access-Control-Allow-Origin", "*");
@@ -79,9 +81,38 @@ app.get('/user', function (req, res) {
 
 
 })
+// 详细信息
+app.get('/detail', function (req, res) {
+
+    res.append("Access-Control-Allow-Origin", "*");
+    //通过request请求发起http请求，请求后台的数据
+    var data = req.query;
+    send_go(data)
+    console.log(data.pid);
+    function send_go(data) {
+        request(`http://www.iqingyi.com/post/app_detail?pid=${data.pid}`, function (error, response, body) {
+            if (error) throw error;
+            res.send(JSON.stringify(body))
+        })
+    }
+
+
+})
+// 全部评论
+app.get('/comment', function (req, res) {
+
+    res.append("Access-Control-Allow-Origin", "*");
+    //通过request请求发起http请求，请求后台的数据
+    var data = req.query;
+    send_go(data)
+    console.log(data.id);
+    function send_go(data) {
+        request(`http://www.iqingyi.com/comment/getCommentByPost?id=${data.id}`, function (error, response, body) {
+            console.log(data);
+            if (error) throw error;
+            res.send(JSON.stringify(body))
+        })
+    }
+})
 //监听端口
 app.listen(3000);
-
-
-
-

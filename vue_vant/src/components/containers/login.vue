@@ -1,10 +1,11 @@
 <template>
     <div style="widht:100%;height:100px;">
-       <div class="head">
+       <!-- <div class="head">
            <van-icon name="arrow-left" />
            <span>登录</span>
            <span></span>
-       </div>
+       </div> -->
+        <xxheader type="login"/>
        <div class="pannel">
            <div class="p_head">
                 <span class="round"><img src="../../assets/imgs/favicon.jpg" alt=""></span>
@@ -34,6 +35,8 @@ import { Icon } from 'vant';
 
 Vue.use(Icon);
 
+import xxheader from "./xxheader.vue";
+
 export default {
     
     data() {
@@ -42,7 +45,7 @@ export default {
         }
     },
     components: {
-        
+        xxheader
         },
     methods: {
       

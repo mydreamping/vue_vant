@@ -43,10 +43,7 @@ export default {
        
     },
     mounted() {
-      console.log(this.type)
-      if (this.type==="home") {
-                  
-        }
+      
     }
 }
 </script>

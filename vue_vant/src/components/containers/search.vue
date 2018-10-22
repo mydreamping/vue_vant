@@ -157,9 +157,7 @@
      width: 5.333333333333333rem;
 }
 /* 小标题 */
- h3 {
-     padding: 0 0.26666666666666666rem;
-}
+
  strong {
      font-size: 0.3466666666666667rem;
      word-wrap: break-word;
@@ -176,6 +174,7 @@
      -webkit-margin-start: 0rem;
      -webkit-margin-end: 0rem;
      font-weight: bold;
+     padding: 0 0.26666666666666666rem;
 }
  h3 strong a {
      font-size:0.4rem;

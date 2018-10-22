@@ -49,8 +49,10 @@ export default {
   props: ["type"],
   data() {
     return {
-      total: "",
-      num:""
+        total: "",
+        num:"",
+        startidx:0,
+
     };
   },
   methods: {
@@ -59,8 +61,12 @@ export default {
       $.ajax({
         url: "http://localhost:3000/all",
         type: "get",
-        data: {},
+        data: {
+            startidx:0,
+            num:10
+        },
         success(data) {
+
           var data = JSON.parse(data);
           // console.log(JSON.parse(data));
 
@@ -73,24 +79,29 @@ export default {
       });
     },
     add(){
-       var self = this;
+        var self = this;
+        // var  startidx;
+        self.startidx++;
+
         $.ajax({
             url: "http://localhost:3000/all",
             type: "get",
             data: {
-                startidx:0,
-                num:20
+                startidx:self.startidx,
+                num:10
                 
             },
             success(data) {
             var data = JSON.parse(data);
-            // console.log(JSON.parse(data));
+            console.log(self.startidx);
 
             // console.log(JSON.parse(data).data);
             var res = JSON.parse(data).data;
-            self.total = res;
+            // self.total = res;
 
+            self.total = self.total.concat(res);
             console.log(res);
+            
             }
       });
         
@@ -165,7 +176,7 @@ export default {
         width: 100%;
         height: 60px;
         line-height: 60px  ;
-        background-color: #bcfcfc;
+        background-color: #75a45d;
         text-align:center;
         font-size:30px;
 

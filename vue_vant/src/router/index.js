@@ -13,6 +13,9 @@ import Reg from './../components/containers/reg.vue'
 import Search from './../components/containers/search.vue'
 import Page from './../components/containers/page.vue'
 
+import Xxheader from './../components/containers/xxheader.vue'
+
+
 const router = new VueRouter({
     routes : [{
         path:'/home',
@@ -43,6 +46,10 @@ const router = new VueRouter({
         path:'/page',
         name:'page',
         component:Page
+    },{ 
+        path:'/xxheader',
+        name:'xxheader',
+        component:Xxheader
     }]
 })
 

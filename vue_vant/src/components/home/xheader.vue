@@ -59,9 +59,9 @@ export default {
 }
  .round{
      diaplay:block;
-     width:1.0666666666666667rem;
-     height: 1.0666666666666667rem;
-     background:pink;
+     width:1rem;
+     height: 1rem;
+     /* background:pink; */
      border-radius: 50%;
 }
  .round img{
