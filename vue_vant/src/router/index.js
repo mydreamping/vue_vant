@@ -14,7 +14,7 @@ import Search from './../components/containers/search.vue'
 import Page from './../components/containers/page.vue'
 
 import Xxheader from './../components/containers/xxheader.vue'
-
+import text from './../components/containers/text.vue'
 
 const router = new VueRouter({
     routes : [{
@@ -50,6 +50,10 @@ const router = new VueRouter({
         path:'/xxheader',
         name:'xxheader',
         component:Xxheader
+    },{ 
+        path:'/text',
+        name:'text',
+        component:text,
     }]
 })
 

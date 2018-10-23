@@ -1,114 +1,131 @@
 <template>
     <div class="page">
-        <!-- 头部 -->
-        <xxheader type="page"/>
-        <!-- 中间正文 -->
-        <section class="pannel">
-            <div class="title"> 
-                <div>
-                    <span>推荐</span>
-                    <p>{{total.title}}</p>
+        <div @mousewheel="getnow($event)" @click = "clickfun($event)">
+            <!-- 头部 -->
+            <xxheader type="page"/>
+            <!-- 中间正文 -->
+            <section class="pannel">
+                <div class="title"> 
+                    <div>
+                        <span>推荐</span>
+                        <p>{{total.title}}</p>
+                    </div>
+                    <div>
+                        <span>
+                            <img :src="total.usercover" alt="">
+                        </span> 
+                        <div class="t_name">
+                            <span>{{total.user_name}}</span>
+                            <span>{{total.time}}</span>
+                            <!-- <span>{{total.time.slice(0,10)}}</span> -->
+                        </div>   
+                        <span>关注</span>
+                        
+                    </div>
                 </div>
-                <div>
-                    <span>
-                        <img :src="total.usercover" alt="">
-                    </span> 
-                    <div class="t_name">
-                        <span>{{total.user_name}}</span>
-                        <span>{{total.time.slice(0,10)}}</span>
-                    </div>   
-                    <span>关注</span>
-                    
+                <div  class="content">
+                    <div v-html="total.content">
+                    </div>
+
                 </div>
-            </div>
-            <div class="content" v-html="total.content">
-            </div>
 
-        <!-- 相关文章 -->
-            <div class="all_article">
-                <h3 class="h3_title">
-                    <strong><a href="#">相关文章</a></strong>
-                    <a href="#" rel="nofollow"></a>
-                </h3>
-                <ul class="r_articles"> 
-                    <li v-for="(r,index) in related" :key="index">
-                        <div class="b_pic">
-                            <img :src="r.postcover" alt="">
-                        </div>
-                        <div class="r_con">
-                            <p>{{r.title}}</p>
-                            <p class="some_all">
-                                <span>
-                                    <img :src="r.user.usercover" alt="">
-                                </span>    
-                                <span class="iconfont icon-xinxi">{{r.comment_cnt}}</span>
-                                <span class="iconfont icon-dianzan">{{r.praise_cnt}}</span>
-                            </p>
-                        </div>
-                    
-                    </li>
-                </ul>
-            </div>
-
-            <!--评论 -->
-            <div>
-                <h3 class="h3_title">
-                    <strong><a href="#">全部评论</a></strong>
-                    <a href="#" rel="nofollow"></a>
-                </h3>
-                <ul>
-                    <li v-for="c in comment">
-                        <div class="c_com">
-                            <span>
-                                <img :src="c.usercover" alt="">
-                            </span>
-                            <div class="c_total">
-                                
-                                    <span class="c_name">{{c.user_name}}</span>
-                                    <span class="c_title">{{c.time.slice(5,15)}}</span>
-                                <p>   
-                                    <span>回复{{c.parent.user_name}}：<span v-html="c.content"></span></span>
-                                </p>
-                                <p class="small_icon">
-                                    <i class="iconfont icon-xinxi"></i>
-                                    <i class="iconfont icon-dianzan"></i>
+            <!-- 相关文章 -->
+                <div class="all_article">
+                    <h3 class="h3_title">
+                        <strong><a href="#">相关文章</a></strong>
+                        <a href="#" rel="nofollow"></a>
+                    </h3>
+                    <ul class="r_articles"> 
+                        <li v-for="(r,index) in related" :key="index">
+                            <div class="b_pic">
+                                <img :src="r.postcover" alt="">
+                            </div>
+                            <div class="r_con">
+                                <p>{{r.title}}</p>
+                                <p class="some_all">
+                                    <span>
+                                        <img :src="r.user.usercover" alt="">
+                                    </span>    
+                                    <span class="iconfont icon-xinxi">{{r.comment_cnt}}</span>
+                                    <span class="iconfont icon-dianzan">{{r.praise_cnt}}</span>
                                 </p>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-                <div style="font-size:40px; text-align:center;">没有更多了</div>
-            </div>
-        </section>
-        <!-- 底部 -->
-        <div class="f_content">
-            <div class="foot">
-                <span class="iconfont icon-weixinpengyouquan"></span>
-                <i></i>
-                <span class="iconfont icon-dianzan">{{total.praise_cnt}}</span>
-                <i></i>
-                <span class="iconfont icon-xinxi"></span>
-                <span class="iconfont icon-gengduo"></span>
-            
+                        
+                        </li>
+                    </ul>
+                </div>
+
+                <!--评论 -->
+                <div class="all_comment" id="all_comment"> 
+                    <h3 class="h3_title">
+                        <strong><a href="#">全部评论</a></strong>
+                        <a href="#" rel="nofollow"></a>
+                    </h3>
+                    <ul>
+                        <li v-for="c in comment">
+                            <div class="c_com">
+                                <span>
+                                    <img :src="c.usercover" alt="">
+                                </span>
+                                <div class="c_total">
+                                    
+                                        <span class="c_name">{{c.user_name}}</span>
+                                        <span class="c_title">{{c.time.slice(5,16)}}</span>
+                                    <p>   
+                                        <span>回复<a href="#">@{{c.parent.user_name}}</a> ：<span v-text="c.content"></span></span>
+                                    </p>
+                                    <p class="small_icon">
+                                        <i class="iconfont icon-xinxi"></i>
+                                        <i class="iconfont icon-dianzan"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="font-size:40px; text-align:center;">没有更多了</div>
+                </div>
+            </section>
+            <!-- 底部 -->
+
+
+      
+                
+                <div class="f_content">
+                    <div class="foot">
+                        <span class="iconfont icon-weixinpengyouquan"></span>
+                        <i></i>
+                        <span class="iconfont icon-dianzan">{{total.praise_cnt}}</span>
+                        <i></i>
+                        <span class="iconfont icon-xinxi"></span>
+                        <span class="iconfont icon-gengduo"></span>
+                    
+                    </div>
+
+                </div>
+         
+            <!-- 返回顶部 -->
+            <div>
+                <span class="gotop iconfont icon-xinxi" @click="goTop()"></span>
             </div>
 
-        </div>
-        <!-- 返回顶部 -->
-        <div>
-            <span class="gotop iconfont icon-xinxi" @click="goTop()"></span>
+
         </div>
     </div>
 </template>
 
 
 <script>
+// eslint-disable-next-line.
+/* eslint-disable */
 import Vue from "vue";
-import { Icon } from "vant";
+// import { Icon } from "vant";
 
-Vue.use(Icon);
+// Vue.use(Icon);
 
 import http from "./../../utils/HttpClient";
 import xxheader from "./xxheader.vue";
+
+import { ImagePreview } from "vant";
 
 export default {
   data() {
@@ -116,7 +133,10 @@ export default {
       active: 0,
       total: "",
       related: "",
-      comment: ""
+      comment: "",
+      isgoTop: true,
+      images: [],
+      startPosition:0
     };
   },
   components: {
@@ -142,7 +162,7 @@ export default {
           self.total = res;
           console.log(self.total);
           self.related = res.related;
-          console.log(self.related);
+        //   console.log(self.related);
         }
       });
     },
@@ -168,18 +188,85 @@ export default {
       });
     },
     //回到顶部
-    goTop(){
-        console.log(666);
-        
+    goTop() {
+      this.isgoTop = !this.isgoTop;
+      //   console.log(this.isgoTop);
+      if (this.isgoTop) {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      } else {
+        $(".gotop").removeClass("icon-xinxi");
+        $(".gotop").addClass("icon-fanhuidingbu2");
+        // 跳转锚点指定位置，不改变url
+        document.querySelector("#all_comment").scrollIntoView(true);
+      }
+    },
+    //获取当前位置
+    getnow($event) {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      //   console.log(scrollTop)
+      if (scrollTop > 500) {
+        $(".gotop").css("display", "block");
+      }
+      if (scrollTop > 2000) {
+        $(".f_content").css("display", "none");
+      }
+      if (scrollTop < 1500) {
+        $(".f_content").css("display", "block");
+      }
+      if (scrollTop < 1000) {
+        $(".gotop").removeClass("icon-fanhuidingbu2");
+        $(".gotop").addClass("icon-xinxi");
+        $(".gotop").css("display", "none");
+      }
+    },
+    clickfun(e) {
+      // e.target 是你当前点击的元素 e.currentTarget 是你绑定事件的元素
+      var currentEle = e.target.src;
+
+      var newSrc = [];
+      var newImg = $(".content").find("img");
+
+      
+
+      $.each(newImg, function(index, value) {
+        var bq = value.currentSrc;
+        newSrc.push(bq);
+      });
+      this.images = newSrc;
+    //   console.log($.inArray(currentEle,this.images));
+    // 判断是否存在于数组之中，并放回该条数据的索引值
+      this.startPosition =  $.inArray(currentEle,this.images)
+
+
+
+      if (currentEle) {
+        // ImagePreview(this.images);
+        ImagePreview({
+          images: this.images,
+          startPosition: this.startPosition,
+          //退出时操作
+          onClose() {
+            // do something
+          }
+        });
+      }
     }
   },
   mounted() {
+    //监听滑动
+    window.addEventListener("scroll", this.getnow);
     this.getUrl();
     this.getgetComment();
-    this.goTop();
   }
 };
 </script>
+
+
+
 <style lang="scss" scoped>
 .head {
   width: 100%;
@@ -252,72 +339,63 @@ h3 a {
 }
 
 //
-.title{
-    div:nth-child(1){
-        margin:30px 0;
-        overflow:hidden;
-        span:nth-child(1){
-            background-color:orange;
-            color:#fff;
-            font-size:40px;
-            padding:10px;
-            border-radius: 15px;
-            margin-left:20px;
-        
-        }
-        p{
-            width: 550px;
-            font-size:40px;
-            float: right;
-            margin:0;
-            
-        }
-        
+.title {
+  div:nth-child(1) {
+    margin: 30px 0;
+    overflow: hidden;
+    span:nth-child(1) {
+      background-color: orange;
+      color: #fff;
+      font-size: 40px;
+      padding: 10px;
+      border-radius: 15px;
+      margin-left: 20px;
     }
-    div:nth-child(2){
-        overflow:hidden;
-        img{
-            border-radius: 50%;
-        }
-        span{
-            font-size:35px;
-        }
+    p {
+      width: 600px;
+      font-size: 40px;
+      float: right;
+      margin: 0;
     }
-    span:nth-child(1){
-        float:left;
+  }
+  div:nth-child(2) {
+    overflow: hidden;
+    img {
+      border-radius: 50%;
     }
-    span:nth-child(3){
-        float:right;
-        background-color: #75a43d;
-        width: 2rem;
-        height: 0.9333333333333333rem;
-        border-radius: 0.2rem;
-        line-height: 0.9333333333333333rem;
-        color: #fff;
-        font-size: 0.3466666666666667rem;
-        font-weight: bold;
-        text-align:center;
-        margin-right:30px;
+    span {
+      font-size: 35px;
     }
-    .t_name{
-        position:relative;
-        height: 100px;
-        width:200px;
-        float:left;
-        margin-left:30px;
-        span:nth-child(2){
-            font-size:20px;
-            position:absolute;
-            left:0;
-            bottom:0;
-        }
+  }
+  span:nth-child(1) {
+    float: left;
+  }
+  span:nth-child(3) {
+    float: right;
+    background-color: #75a43d;
+    width: 2rem;
+    height: 0.9333333333333333rem;
+    border-radius: 0.2rem;
+    line-height: 0.9333333333333333rem;
+    color: #fff;
+    font-size: 0.3466666666666667rem;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 30px;
+  }
+  .t_name {
+    position: relative;
+    height: 100px;
+    width: 200px;
+    float: left;
+    margin-left: 30px;
+    span:nth-child(2) {
+      font-size: 20px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
     }
-   
-} 
-
-// 中间正文面板
-.pannel {
-  margin-bottom: 100px;
+  }
 }
 
 .all_article {
@@ -326,22 +404,9 @@ h3 a {
   padding-bottom: 16px;
 }
 
-// 内容
-.content{
-    font-size:40px;
-    
-    p{   
-        img{
-            width:750px;
-            border-radius: 15px;
-        }
-    }
-}
-
-
-
 // 相关文章
 .r_articles {
+  margin: 0 20px;
   li {
     // margin: 30px;
     overflow: hidden;
@@ -380,44 +445,91 @@ h3 a {
   }
 }
 // 评论
-.c_com{
-    font-size:40px;
-    position: relative;
-    img{
-        border-radius: 50%;
+.all_comment {
+  width: 750px;
+  ul {
+    padding: 0 30px;
+  }
+}
+.c_com {
+  width: 100%;
+  overflow: hidden;
+  font-size: 40px;
+  position: relative;
+  img {
+    border-radius: 50%;
+  }
+  .small_icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    i {
+      font-size: 40px;
     }
-    .small_icon{
-        position:absolute;
-        top:5px;
-        right:5px;
-        i{
-        font-size:40px;
-
-        }
+  }
+  .c_total {
+    .c_name {
+      position: absolute;
+      top: 5px;
+      left: 120px;
     }
-    .c_total{
-        .c_name{
-            position:absolute;
-            top:5px;
-            left:120px;
-        }
-        .c_title{
-            position:absolute;
-            top:70px;
-            left:120px;
-        }
-        p{
-            margin:20px;
-        }
+    .c_title {
+      position: absolute;
+      top: 70px;
+      left: 120px;
     }
+    p {
+      margin: 20px;
+    }
+  }
 }
 // 返回顶部
-.gotop{
-    position:fixed;
-    right:20px;
-    bottom:300px;
-    color:orange;
-    font-size:100px;
-    border-radius: 50%;
+.gotop {
+  position: fixed;
+  right: 20px;
+  bottom: 300px;
+  background: orange;
+  color: #fff;
+  font-size: 80px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  display: none;
 }
 </style>
+<style lang="scss">
+// 中间正文面板
+
+.pannel {
+  margin-bottom: 100px;
+  width: 750px;
+  // 内容
+
+  .content {
+    font-size: 36px;
+    background-color: #fff;
+    width: 690px;
+    padding: 0 30px;
+    p {
+      line-height: 45px;
+      margin: 0;
+    }
+    img {
+      width: 690px;
+      border-radius: 15px;
+    }
+  }
+}
+.van-swipe-item {
+  img {
+    width: 100%;
+  }
+}
+.van-image-preview__index{
+  font-size:40px;
+  
+}
+</style>
+

@@ -63,7 +63,7 @@ app.get('/swiper', function (req, res) {
 
 
 })
-// 详细信息，正文页
+// 用户
 app.get('/user', function (req, res) {
 
     res.append("Access-Control-Allow-Origin", "*");
@@ -81,6 +81,7 @@ app.get('/user', function (req, res) {
 
 
 })
+
 // 详细信息
 app.get('/detail', function (req, res) {
 

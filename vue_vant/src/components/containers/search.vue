@@ -123,7 +123,7 @@
         },
         setSearchText(value){
             console.log(666);
-            this.$store.dispatch("setSearchText",this.searchText);
+            // this.$store.dispatch("setSearchText",this.searchText);
             console.log(value)
         }
     },
