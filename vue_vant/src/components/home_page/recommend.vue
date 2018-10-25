@@ -27,7 +27,7 @@
 
             </div>
                 <van-swipe :width="600">
-                    <van-swipe-item  v-for="(s,index) in topic1">
+                    <van-swipe-item  v-for="(s,index) in topic1" :key="index">
                         <div class="s_pic">
                             <div class="s_pic_img">
                                 <img :src="s.postcover" alt="">
@@ -77,7 +77,7 @@
 
             </div>
                 <van-swipe :width="600">
-                    <van-swipe-item  v-for="(s,index) in topic2">
+                    <van-swipe-item  v-for="(s,index) in topic2" :key="index">
                         <div class="s_pic">
                             <div class="s_pic_img">
                                 <img :src="s.postcover" alt="">

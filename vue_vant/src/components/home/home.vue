@@ -3,7 +3,7 @@
         <div class="demo">
           <xheader/>
           <tab  type="home"/>
-          <xfooter /> 
+          <!-- <xfooter />  -->
         </div>
     </div>
 </template>

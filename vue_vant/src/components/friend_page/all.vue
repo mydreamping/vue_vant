@@ -1,5 +1,8 @@
 <template>
     <div style="height:100%; margin-bottom:2rem;" >
+
+        <!-- <van-loading /> -->
+        <!-- <van-loading color="yellow" size="100px"/> -->
         <section>
             <ul class="content">
                 <li v-for="(t,index) in total" :key="index">
@@ -43,16 +46,19 @@ import { Swipe, SwipeItem } from "vant";
 
 Vue.use(Swipe).use(SwipeItem);
 
+import { Loading } from "vant";
+
+Vue.use(Loading);
+
 import http from "./../../utils/HttpClient";
 
 export default {
   props: ["type"],
   data() {
     return {
-        total: "",
-        num:"",
-        startidx:0,
-
+      total: "",
+      num: "",
+      startidx: 0
     };
   },
   methods: {
@@ -62,57 +68,50 @@ export default {
         url: "http://localhost:3000/all",
         type: "get",
         data: {
-            startidx:0,
-            num:10
+          startidx: 0,
+          num: 10
         },
         success(data) {
-
           var data = JSON.parse(data);
           // console.log(JSON.parse(data));
 
           // console.log(JSON.parse(data).data);
           var res = JSON.parse(data).data;
           self.total = res;
-
+          
           console.log(res);
         }
       });
     },
-    add(){
-        var self = this;
-        // var  startidx;
-        self.startidx++;
+    add() {
+      var self = this;
+      // var  startidx;
+      self.startidx++;
 
-        $.ajax({
-            url: "http://localhost:3000/all",
-            type: "get",
-            data: {
-                startidx:self.startidx,
-                num:10
-                
-            },
-            success(data) {
-            var data = JSON.parse(data);
-            console.log(self.startidx);
+      $.ajax({
+        url: "http://localhost:3000/all",
+        type: "get",
+        data: {
+          startidx: self.startidx,
+          num: 10
+        },
+        success(data) {
+          var data = JSON.parse(data);
+          console.log(self.startidx);
 
-            // console.log(JSON.parse(data).data);
-            var res = JSON.parse(data).data;
-            // self.total = res;
+          // console.log(JSON.parse(data).data);
+          var res = JSON.parse(data).data;
+          // self.total = res;
 
-            self.total = self.total.concat(res);
-            console.log(res);
-            
-            }
+          self.total = self.total.concat(res);
+          console.log(res);
+        }
       });
-        
     }
-   
-  }, 
+  },
   mounted() {
     this.getall();
-    
-  },
- 
+  }
 };
 </script>
 
@@ -126,60 +125,58 @@ export default {
 .all_top {
   width: 100%;
   height: 100px;
-  p{
-      float: left;
+  p {
+    float: left;
   }
   .pic {
     width: 100px;
     height: 100px;
     img {
       border-radius: 50%;
-      width:100%;
+      width: 100%;
       height: 100%;
     }
   }
 }
-.title{
-    font-size:40px;
+.title {
+  font-size: 40px;
 }
-.a_right{
-    overflow: hidden;
-    .picture{
-        float: left;
-        width: 300px;
-        height: 200px;
-        img{
-            width:100%;
-            height: 100%;
-        }
+.a_right {
+  overflow: hidden;
+  .picture {
+    float: left;
+    width: 300px;
+    height: 200px;
+    img {
+      width: 100%;
+      height: 100%;
     }
-.article{
-    float:right;
+  }
+  .article {
+    float: right;
     width: 380px;
     height: 200px;
     overflow: hidden;
-    font-size:40px;
+    font-size: 40px;
+  }
 }
+.content {
+  background-color: #ececec;
+  li {
+    margin: 20px;
+    background-color: #fff;
+    overflow: hidden;
+    padding: 15px 0;
+  }
 }
-.content{
-    background-color: #ECECEC;
-    li{
-        margin:20px;
-        background-color: #fff;
-        overflow:hidden;
-        padding:15px 0;
-    
-    }
+.many {
+  p {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #75a45d;
+    text-align: center;
+    font-size: 30px;
+  }
 }
-.many{
-    p{
-        width: 100%;
-        height: 60px;
-        line-height: 60px  ;
-        background-color: #75a45d;
-        text-align:center;
-        font-size:30px;
-
-    }
-}     
 </style>

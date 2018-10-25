@@ -2,9 +2,9 @@
     <div>
         
         <van-tabbar v-model="active">
-            <van-tabbar-item icon="home" @click="change(0)">关注</van-tabbar-item>
-            <van-tabbar-item icon="chat" @click="change(1)">驿友</van-tabbar-item>
-            <van-tabbar-item icon="share" @click="change(2)">发现</van-tabbar-item>
+            <van-tabbar-item icon="home" @click="change(0)" :data-card="0" >关注</van-tabbar-item>
+            <van-tabbar-item icon="chat" @click="change(1)" :data-card="1">驿友</van-tabbar-item>
+            <van-tabbar-item icon="share" @click="change(2)" :data-card="2">发现</van-tabbar-item>
         </van-tabbar>
  
     </div>
@@ -19,39 +19,27 @@ export default {
     return {
       page: 0,
       active: 2,
-      name: [
-        {
-          title: "关注",
-          icon: "home"
-        },
-        {
-          title: "驿友",
-          icon: "chat"
-        },
-        {
-          title: "发现",
-          icon: "share"
-        }
-      ]
     };
   },
   methods: {
     change(index) {
       this.page = index;
       switch (index) {
-        case 0:
+        case 0:    
           location.href = "#/friend";
           break;
-        case 1:
+        case 1:      
           location.href = "#/record";
           break;
         case 2:
-          location.href = "#/home";
+          location.href = "#/swiper";
           break;
       }
-    }
+    },
   },
-  mounted() {}
+  mounted() {
+    
+  }
 };
 </script>
 <style scoped>
@@ -63,10 +51,8 @@ export default {
   /* font-size: 0.5rem; */
 }
 .van-tabbar-item__icon {
-     font-size: 0.6666666666666666rem;
-     position: relative;
-     margin-bottom: 0.06666666666666667rem;
+  font-size: 0.6666666666666666rem;
+  position: relative;
+  margin-bottom: 0.06666666666666667rem;
 }
- 
-
 </style>

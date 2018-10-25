@@ -12,7 +12,7 @@
             </h3>
             <div class="banner">
                 <van-swipe :width="600">
-                    <van-swipe-item v-for="t in terrace">
+                    <van-swipe-item v-for="(t,index) in terrace" :key="index">
                         <div> 
                             <div class="b_pic"><img :src="t.imgUrl" alt=""></div>
                             <div class="myname">{{t.name}}</div>

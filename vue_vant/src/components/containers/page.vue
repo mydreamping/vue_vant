@@ -76,7 +76,7 @@
                                     </p>
                                     <p class="small_icon">
                                         <i class="iconfont icon-xinxi"></i>
-                                        <i class="iconfont icon-dianzan"></i>
+                                        <i class="iconfont icon-dianzan" @click="clickzan($event)">{{c.praise_cnt}}</i>
                                     </p>
                                 </div>
                             </div>
@@ -118,9 +118,6 @@
 // eslint-disable-next-line.
 /* eslint-disable */
 import Vue from "vue";
-// import { Icon } from "vant";
-
-// Vue.use(Icon);
 
 import http from "./../../utils/HttpClient";
 import xxheader from "./xxheader.vue";
@@ -136,7 +133,8 @@ export default {
       comment: "",
       isgoTop: true,
       images: [],
-      startPosition:0
+      startPosition: 0,
+      praise_cnt:0
     };
   },
   components: {
@@ -162,7 +160,7 @@ export default {
           self.total = res;
           console.log(self.total);
           self.related = res.related;
-        //   console.log(self.related);
+          //   console.log(self.related);
         }
       });
     },
@@ -223,6 +221,7 @@ export default {
         $(".gotop").css("display", "none");
       }
     },
+    // 点击大图
     clickfun(e) {
       // e.target 是你当前点击的元素 e.currentTarget 是你绑定事件的元素
       var currentEle = e.target.src;
@@ -230,18 +229,14 @@ export default {
       var newSrc = [];
       var newImg = $(".content").find("img");
 
-      
-
       $.each(newImg, function(index, value) {
         var bq = value.currentSrc;
         newSrc.push(bq);
       });
       this.images = newSrc;
-    //   console.log($.inArray(currentEle,this.images));
-    // 判断是否存在于数组之中，并放回该条数据的索引值
-      this.startPosition =  $.inArray(currentEle,this.images)
-
-
+      //   console.log($.inArray(currentEle,this.images));
+      // 判断是否存在于数组之中，并放回该条数据的索引值
+      this.startPosition = $.inArray(currentEle, this.images);
 
       if (currentEle) {
         // ImagePreview(this.images);
@@ -254,6 +249,18 @@ export default {
           }
         });
       }
+    },
+    // 点赞
+    clickzan(e){
+      var self = this;
+      // var  startidx;
+      self.praise_cnt++;
+
+      var num = $(e.target).text();
+      this.praise_cnt = num;
+
+      console.log(self.praise_cnt)
+      
     }
   },
   mounted() {
@@ -517,7 +524,7 @@ h3 a {
       margin: 0;
     }
     img {
-      width: 690px;
+      width: 100%;
       border-radius: 15px;
     }
   }
@@ -527,9 +534,8 @@ h3 a {
     width: 100%;
   }
 }
-.van-image-preview__index{
-  font-size:40px;
-  
+.van-image-preview__index {
+  font-size: 40px;
 }
 </style>
 

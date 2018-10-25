@@ -15,6 +15,7 @@ import Page from './../components/containers/page.vue'
 
 import Xxheader from './../components/containers/xxheader.vue'
 import text from './../components/containers/text.vue'
+import swiper from './../components/containers/swiper.vue'
 
 const router = new VueRouter({
     routes : [{
@@ -54,6 +55,10 @@ const router = new VueRouter({
         path:'/text',
         name:'text',
         component:text,
+    },{ 
+        path:'/swiper',
+        name:'swiper',
+        component:swiper,
     }]
 })
 
