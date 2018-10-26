@@ -62,7 +62,7 @@ app.get('/swiper', function (req, res) {
     send_go(data)
 
     function send_go(data) {
-        request(`http://www.iqingyi.com/topic/getHotTopicPosts?startidx=${data.startidx}&num=${data.num}` + data, function (error, response, body) {
+        request(`http://www.iqingyi.com/topic/getHotTopicPosts?startidx=${data.startidx}&num=${data.num}`, function (error, response, body) {
             // console.log(data);
             if (error) throw error;
             res.send(JSON.stringify(body))
@@ -156,6 +156,24 @@ app.get('/question', function (req, res) {
         request(`http://www.iqingyi.com/qa/getQuestionSquare?startidx=${data.startidx}&num=${data.num}`, function (error, response, body) {
             if (error) throw error;
             res.send(JSON.stringify(body))
+        })
+    }
+
+
+})
+
+// 请求百度接口
+app.get('/baidu', function (req, res) {
+
+    res.append("Access-Control-Allow-Origin", "*");
+    //通过request请求发起http请求，请求后台的数据
+    var data = req.query;
+    send_go(data)
+    // console.log(data.pid);
+    function send_go(data) {
+        request(`https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?cb=getData&wd='${data.keyword}`, function (error, response, body) {
+            if (error) throw error;
+            res.send(body)
         })
     }
 

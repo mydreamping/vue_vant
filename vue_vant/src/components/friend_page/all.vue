@@ -34,9 +34,14 @@
                 </li>
             </ul>
         </section>
-        <div class="many">
+
+        <!-- 上拉滚动加载 -->
+        <van-list v-model="loading" :finished="finished"  @load="onLoad"></van-list>
+
+
+        <!-- <div class="many">
             <p @click="add()">点击加载更多</p>
-        </div>
+        </div> -->
 
         </van-pull-refresh>
     </div>
@@ -60,6 +65,11 @@ import { PullRefresh } from 'vant';
 
 Vue.use(PullRefresh);
 
+// 列表加载
+import { List } from 'vant';
+
+Vue.use(List);
+
 import http from "./../../utils/HttpClient";
 
 export default {
@@ -70,7 +80,9 @@ export default {
       num: "",
       startidx: 0,
       count: 0,
-      isLoading: false
+      isLoading: false,
+      loading: false,
+      finished: false
     };
   },
   methods: {
@@ -149,6 +161,20 @@ export default {
           console.log(res);
         }
       });
+      }, 500);
+    },
+    onLoad() {
+      // 异步更新数据
+      setTimeout(() => {
+
+        console.log("aaa");
+        // 执行向下加载的函数
+
+        this.add();
+        // 加载状态结束
+        this.loading = false;
+
+      
       }, 500);
     }
  

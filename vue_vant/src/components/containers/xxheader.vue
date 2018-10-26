@@ -32,16 +32,18 @@ export default {
     },
     mounted() {
        console.log(this.type);
-       if(this.type==='page'){
+            if(this.type==='page'){
 				this.arr = ['正文页']
 			}else if(this.type==='login'){
                 this.arr = ['登录'];
                 $(".icon").removeClass("icon-fenxiang");
-			}else{
+			}else if(this.type==="reg"){
                 this.arr = ['注册'];
-                $(".icon").removeClass("icon-fenxiang");
-                
-		}
+                $(".icon").removeClass("icon-fenxiang");     
+		    }else{
+                this.arr= ['搜索'];
+
+            }
     }
 }
 </script>

@@ -1,13 +1,19 @@
 <template>
-    <div style="height:100%;">
-            <div>
-               
-            </div>
-        <van-swipe>
-            <van-swipe-item><respond /></van-swipe-item>
-            <van-swipe-item><invites /></van-swipe-item>
-            
-        </van-swipe>
+    <div style="height:100%;" class="square">
+            <van-swipe @change="onChange">
+                    <van-swipe-item>
+                        <respond />
+                        </van-swipe-item>
+                    <van-swipe-item
+                    ><invites />
+                    </van-swipe-item>
+                        
+
+                          <!-- <van-swipe-item>1</van-swipe-item>
+                            <van-swipe-item>2</van-swipe-item> -->
+                            
+            </van-swipe>
+      
     </div>
 </template>
 
@@ -23,7 +29,8 @@ export default {
     props:["type"],
     data() {
         return {
-          
+            idx:'',
+            active: 0,
         }
     },
     components:{
@@ -31,7 +38,10 @@ export default {
         invites
     },
     methods: {
-       
+       onChange(idx) {
+            console.log('当前 Swipe 索引：' + idx);
+            this.active = idx;
+        }
     },
     mounted() {
       
@@ -39,5 +49,16 @@ export default {
 }
 </script>
 <style>
+
+
+/* .square .van-swipe__indicators{
+      top:10px;
+    
+}
+.square .van-swipe__indicator{
+    width:150px;
+    height: 70px;
+    border-radius: 0;
+} */
 
 </style>

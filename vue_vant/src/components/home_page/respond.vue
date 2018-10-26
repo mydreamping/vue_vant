@@ -3,7 +3,7 @@
         <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <!-- 问答 -->
           <section>
-            <ul class="posts-list qa-square-list qy-qa-list" v-for="t in total">
+            <ul class="posts-list qa-square-list qy-qa-list" v-for="(t,index) in total" :key="index">
                 <li class="post pos-rel">
                 <span class="post-author clearfix">
                         <a class="floatleft-left" href="/user/499011624024145972" rel="nofollow">

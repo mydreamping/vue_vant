@@ -2,7 +2,9 @@
     <div class="page">
         <div @mousewheel="getnow($event)" @click = "clickfun($event)">
             <!-- 头部 -->
-            <xxheader type="page"/>
+             
+              <xxheader type="page"  :class="isFixed== true?'isFixed':''"/>
+
             <!-- 中间正文 -->
             <section class="pannel">
                 <div class="title"> 
@@ -19,7 +21,7 @@
                             <span>{{total.time}}</span>
                             <!-- <span>{{total.time.slice(0,10)}}</span> -->
                         </div>   
-                        <span>关注</span>
+                        <span v-show="!isStorage"  @click="getok">关注</span>
                         
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                         <a href="#" rel="nofollow"></a>
                     </h3>
                     <ul>
-                        <li v-for="c in comment">
+                        <li v-for="(c,index) in comment" :key="index">
                             <div class="c_com">
                                 <span>
                                     <img :src="c.usercover" alt="">
@@ -85,11 +87,7 @@
                     <div style="font-size:40px; text-align:center;">没有更多了</div>
                 </div>
             </section>
-            <!-- 底部 -->
-
-
-      
-                
+            <!-- 底部 -->          
                 <div class="f_content">
                     <div class="foot">
                         <span class="iconfont icon-weixinpengyouquan"></span>
@@ -134,19 +132,38 @@ export default {
       isgoTop: true,
       images: [],
       startPosition: 0,
-      praise_cnt:0
+      praise_cnt: 0,
+      isFixed:true,
+      isStorage:false,
+      pid:""
     };
   },
   components: {
     xxheader
   },
+  created() {
+    this.isStorage =  window.localStorage.getItem('isStorage'+this.pid);
+  },
   methods: {
+    // 是否关注
+    getok(){
+      // console.log(this.isStorage);
+       var storage=window.localStorage;
+            
+            storage.setItem("isStorage",true);
+
+            this.isStorage = true;
+
+            // console.log(typeof storage["c"]);
+        
+    },
     //   获取详情
     getUrl() {
       var url = location.href;
       var arr = url.split("?");
       var pid = arr[1].split("=")[1];
-
+      this.pid = pid
+      console.log(pid);
       var self = this;
       $.ajax({
         url: "http://localhost:3000/detail",
@@ -206,8 +223,13 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       //   console.log(scrollTop)
+      if(scrollTop < 500){
+        this.isFixed = false; 
+      }
       if (scrollTop > 500) {
+        // console.log(this.$refs);
         $(".gotop").css("display", "block");
+        this.isFixed = true;
       }
       if (scrollTop > 2000) {
         $(".f_content").css("display", "none");
@@ -250,18 +272,7 @@ export default {
         });
       }
     },
-    // 点赞
-    clickzan(e){
-      var self = this;
-      // var  startidx;
-      self.praise_cnt++;
-
-      var num = $(e.target).text();
-      this.praise_cnt = num;
-
-      console.log(self.praise_cnt)
-      
-    }
+   
   },
   mounted() {
     //监听滑动
@@ -275,6 +286,16 @@ export default {
 
 
 <style lang="scss" scoped>
+
+
+.isFixed{
+            position: fixed;
+            top: 0px;
+            z-index: 4;
+            width: 100%;
+        }
+
+
 .head {
   width: 100%;
   height: 1.0666666666666667rem;
@@ -285,6 +306,12 @@ export default {
   background-color: #75a45d;
   color: #fff;
 }
+.littlehead {
+  width: 100%;
+  position:fixed;
+  top:0;
+}
+
 .foot {
   height: 1.3333333333333333rem;
   display: flex;
@@ -517,7 +544,7 @@ h3 a {
   .content {
     font-size: 36px;
     background-color: #fff;
-    width: 690px;
+    // width: 690px;
     padding: 0 30px;
     p {
       line-height: 45px;

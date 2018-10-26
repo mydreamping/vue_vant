@@ -1,5 +1,8 @@
 <template>
-    <div style="height:100%; margin-bottom:2rem;" >
+    <div style="height:100%; margin-bottom:2rem;"  class="recommend">
+
+      <van-loading color="black"  v-if="isLoading" size="100px" style="position:absolute;top:100px;left:45%;"/>
+
         <section>
             <div v-for="(f,index) in first" :key="index" class="big_pic" :data-id="f.pid" @click="getId(f.pid)">
                 <img :src="f.hybrid_cover_std" >
@@ -20,9 +23,9 @@
             </ul>
         </section>
         <!-- 话题1 -->
-        <section>
+        <section v-show="!isLoading">
             <div class="topic">
-                <span>旅游话题</span>
+                <span >旅游话题</span>
                 <span>{{name}}</span>
 
             </div>
@@ -53,7 +56,7 @@
 
          <section>
             <ul class="content">    
-                <li v-for="(s,index) in second_some" :key="index">
+                <li v-for="(s,index) in second_some" :key="index" :data-id="s.pid" @click="getId(s.pid)" >
                 <p class="title">{{s.hybrid_title}}</p> 
                 <div class="c_left">
                     <img :src="s.hybrid_cover_std" alt="">
@@ -70,9 +73,9 @@
 
 
         <!-- 话题2 -->
-        <section>
+        <section v-show="!isLoading">
             <div class="topic">
-                <span>旅游话题</span>
+                <span >旅游话题</span>
                 <span>{{name2}}</span>
 
             </div>
@@ -103,7 +106,7 @@
 
         <section>
             <ul class="content" v-show="isshow">
-                <li v-for="(t,index) in total" :key="index">
+                <li v-for="(t,index) in total" :key="index" :data-id="t.pid" @click="getId(t.pid)">
                     <div class="all_top">
                         <p>
                             <span class="pic">
@@ -132,9 +135,14 @@
             </ul>
         </section>
 
-        <div class="many">
+        <!-- 上拉滚动加载 -->
+        <van-list v-model="loading" :finished="finished"  @load="onLoad" v-show="!isLoading"></van-list>
+
+
+  
+        <!-- <div class="many">
             <p @click="add()">点击加载更多</p>
-        </div>
+        </div> -->
 
 
        
@@ -145,9 +153,21 @@
 
 <script>
 import Vue from "vue";
+
+// 使用轮播图
 import { Swipe, SwipeItem } from "vant";
 
 Vue.use(Swipe).use(SwipeItem);
+
+// 列表加载
+import { List } from 'vant';
+
+Vue.use(List);
+
+// 加载
+import { Loading } from 'vant';
+
+Vue.use(Loading);
 
 import http from "./../../utils/HttpClient";
 
@@ -161,18 +181,21 @@ export default {
       second_some: "",
       swipwer: "",
       count: 0,
-      isLoading: false,
+      isLoading: true,
       num: 0,
       startidx: 0,
       topic1: "",
       name: "",
       topic2: "",
       name2: "",
-      isshow: false
+      isshow: false,
+      loading: false,
+      finished: false
     };
   },
   methods: {
     getNew() {
+      this.isLoading = true;
       var self = this;
       $.ajax({
         url: "http://localhost:3000/index",
@@ -190,6 +213,9 @@ export default {
           self.some = some;
           self.first = first;
           self.second_some = second_some;
+
+
+          self.isLoading = false;
           // console.log(some);
         }
       });
@@ -266,7 +292,22 @@ export default {
         console.log(e);
         var pid = e;
         location.href = `#/page?pid=${pid}`
+    },
+    onLoad() {
+      // 异步更新数据
+      setTimeout(() => {
+
+        console.log("aaa");
+        // 执行向下加载的函数
+
+        this.add();
+        // 加载状态结束
+        this.loading = false;
+
+      
+      }, 500);
     }
+    
   },
   mounted() {
     this.getNew();
@@ -282,16 +323,18 @@ export default {
   margin: 0;
   padding: 0;
 }
+.recommend{
+  /* 轮播图 */
+  .van-swipe__track {
+    width: 400rem !important;
+  }
+  .van-swipe-item {
+    margin-right: 0.13333333333333333rem;
+  }
+  .van-swipe__indicators {
+    display: none;
+  }
 
-/* 轮播图 */
-.van-swipe__track {
-  width: 400rem !important;
-}
-.van-swipe-item {
-  margin-right: 0.13333333333333333rem;
-}
-.van-swipe__indicators {
-  display: none;
 }
 .big_pic {
   position: relative;
