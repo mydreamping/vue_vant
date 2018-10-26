@@ -32,7 +32,7 @@ export default {
           location.href = "#/record";
           break;
         case 2:
-          location.href = "#/swiper";
+          location.href = "#/home";
           break;
       }
     },

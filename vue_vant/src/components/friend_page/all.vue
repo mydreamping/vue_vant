@@ -3,6 +3,7 @@
 
         <!-- <van-loading /> -->
         <!-- <van-loading color="yellow" size="100px"/> -->
+        <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <section>
             <ul class="content">
                 <li v-for="(t,index) in total" :key="index">
@@ -36,7 +37,11 @@
         <div class="many">
             <p @click="add()">点击加载更多</p>
         </div>
+
+        </van-pull-refresh>
     </div>
+    
+    
 </template>
 
 
@@ -50,6 +55,11 @@ import { Loading } from "vant";
 
 Vue.use(Loading);
 
+// 下拉刷新
+import { PullRefresh } from 'vant';
+
+Vue.use(PullRefresh);
+
 import http from "./../../utils/HttpClient";
 
 export default {
@@ -58,7 +68,9 @@ export default {
     return {
       total: "",
       num: "",
-      startidx: 0
+      startidx: 0,
+      count: 0,
+      isLoading: false
     };
   },
   methods: {
@@ -107,7 +119,39 @@ export default {
           console.log(res);
         }
       });
+    },
+     onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.count++;
+
+        var self = this;
+      // var  startidx;
+      self.startidx++;
+
+      $.ajax({
+        url: "http://localhost:3000/all",
+        type: "get",
+        data: {
+          startidx: self.startidx,
+          num: 10
+        },
+        success(data) {
+          var data = JSON.parse(data);
+          console.log(self.startidx);
+
+          // console.log(JSON.parse(data).data);
+          var res = JSON.parse(data).data;
+          self.total = res;
+
+          // self.total = self.total.concat(res);
+          console.log(res);
+        }
+      });
+      }, 500);
     }
+ 
   },
   mounted() {
     this.getall();

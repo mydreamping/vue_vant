@@ -144,7 +144,23 @@ app.get('/comment', function (req, res) {
 })
 
 
+// 问题
+app.get('/question', function (req, res) {
 
+    res.append("Access-Control-Allow-Origin", "*");
+    //通过request请求发起http请求，请求后台的数据
+    var data = req.query;
+    send_go(data)
+    // console.log(data.pid);
+    function send_go(data) {
+        request(`http://www.iqingyi.com/qa/getQuestionSquare?startidx=${data.startidx}&num=${data.num}`, function (error, response, body) {
+            if (error) throw error;
+            res.send(JSON.stringify(body))
+        })
+    }
+
+
+})
 
 //监听端口
 app.listen(3000);
